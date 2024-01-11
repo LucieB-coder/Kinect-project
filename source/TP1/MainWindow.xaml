@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP1"
         mc:Ignorable="d"
+        x:Name="root"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="white" Margin="20">
         <Grid.RowDefinitions>
@@ -15,6 +16,6 @@
 
         <Ellipse Fill="Green" Height="30" Width="30"/>
         <Ellipse Grid.Row="1" Fill="Red" Height="30" Width="30"/>
-        <TextBlock Grid.Row="2" x:Name="StatusText"/>
+        <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding StatusText}"/>
     </Grid>
 </Window>

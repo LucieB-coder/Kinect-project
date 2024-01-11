@@ -22,12 +22,13 @@ namespace TP1
     /// <summary>
     /// Logique d'interaction pour MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         public MainWindow()
         {
-            InitializeComponent();
             KinectManagerViewModel kinectManagerViewModel = new KinectManagerViewModel();
+            kinectManagerViewModel.StartSensor();
+            InitializeComponent();
             DataContext = kinectManagerViewModel;
         }
 
