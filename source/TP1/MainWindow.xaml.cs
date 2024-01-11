@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Microsoft.Kinect;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,9 +20,9 @@ using ViewModel_Wrapper;
 namespace TP1
 {
     /// <summary>
-    /// Logique d'interaction pour MainWindow.xaml
+    /// Logique d'interaction pour MainPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public MainWindow()
         {
@@ -27,5 +30,6 @@ namespace TP1
             KinectManagerViewModel kinectManagerViewModel = new KinectManagerViewModel();
             DataContext = kinectManagerViewModel;
         }
+
     }
 }
