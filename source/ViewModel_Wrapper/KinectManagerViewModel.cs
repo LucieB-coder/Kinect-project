@@ -14,7 +14,7 @@ namespace ViewModel_Wrapper
 
     public partial class KinectManagerViewModel : ObservableObject
     {
-        private KinectSensor KinectSensor { get; set; }
+        public KinectSensor KinectSensor { get; set; }
         public KinectManagerViewModel()
         {
             KinectSensor = KinectSensor.GetDefault();
