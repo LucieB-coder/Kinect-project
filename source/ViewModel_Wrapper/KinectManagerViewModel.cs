@@ -8,17 +8,25 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Model;
 
 namespace ViewModel_Wrapper
 {
 
     public partial class KinectManagerViewModel : ObservableObject
     {
-        private KinectSensor KinectSensor { get; set; }
+        private KinectManager KinectManager;
+
+        public ICommand StartSensorCommand;
+        public ICommand StopSensorCommand;
+
         public KinectManagerViewModel()
         {
-            KinectSensor = KinectSensor.GetDefault();
-            KinectSensor.IsAvailableChanged += KinectSensor_IsAvailableChanged;
+            KinectManager = new KinectManager();
+            KinectManager.KinectSensor.IsAvailableChanged += KinectSensor_IsAvailableChanged;
+            StartSensorCommand = new RelayCommand(StartSensor);
+            StopSensorCommand = new RelayCommand(StopSensor);
+
         }
 
         [ObservableProperty]
@@ -33,18 +41,18 @@ namespace ViewModel_Wrapper
         private void KinectSensor_IsAvailableChanged(object sender, IsAvailableChangedEventArgs e)
         {
             // on failure, set the status text
-            Status = this.KinectSensor.IsAvailable;
+            Status = this.KinectManager.KinectSensor.IsAvailable;
         }
 
 
-        public void StartSensor()
+        private void StartSensor()
         {
-            KinectSensor.Open();
+            KinectManager.StartSensor();
         }
 
-        public void StopSensor()
+        private void StopSensor()
         {
-            KinectSensor.Close();
+            KinectManager.StopSensor();
         }
 
 
