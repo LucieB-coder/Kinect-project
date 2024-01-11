@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ViewModel_Wrapper;
 
 namespace TP1
 {
@@ -23,6 +24,8 @@ namespace TP1
         public MainWindow()
         {
             InitializeComponent();
+            KinectManagerViewModel kinectManagerViewModel = new KinectManagerViewModel();
+            DataContext = kinectManagerViewModel;
         }
     }
 }
