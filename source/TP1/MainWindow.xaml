@@ -15,10 +15,10 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Ellipse Fill="{Binding StatusColor}" Height="30" Width="30"/>
-        <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding StatusText}"/>
+        <Ellipse Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
+        <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
         <Viewbox Grid.Row="3" HorizontalAlignment="Center">
-            <Image Name="theImage" Stretch="UniformToFill" />
+            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding Bitmap}" />
         </Viewbox>
 
     </Grid>

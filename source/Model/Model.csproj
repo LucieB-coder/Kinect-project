@@ -18,4 +18,9 @@
   <PackageReference Include="Microsoft.Kinect" Version="2.0.1410.19000" />
 </ItemGroup>
 
+<ItemGroup>
+  <Reference Include="PresentationCore" />
+  <Reference Include="WindowsBase" />
+</ItemGroup>
+
 </Project>
