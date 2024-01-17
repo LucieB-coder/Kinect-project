@@ -11,6 +11,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         
 
@@ -21,18 +22,41 @@
                 </Style>
             </Grid.Resources>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Ellipse Grid.Column="1" Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
-            <TextBlock VerticalAlignment="center" Grid.Column="2" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
+            <Ellipse Grid.Column="0" Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
+            <TextBlock VerticalAlignment="center" Grid.Column="1" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
         </Grid>
-        <Viewbox Grid.Row="1" HorizontalAlignment="Center">
+
+        <Grid Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="10,10" />
+                    <Setter Property="Padding" Value="10,5" />
+                </Style>
+            </Grid.Resources>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+ 
+            <Button Grid.Column="0" Content="Color" Background="LightGray" BorderBrush="Black" Command="{Binding StartCommand}"/>
+            <Button Grid.Column="1" Content="Depth" Background="LightGray" BorderBrush="Black"/>
+            <Button Grid.Column="2" Content="Infrared" Background="LightGray" BorderBrush="Black"/>
+            <Button Grid.Column="3" Content="Body" Background="LightGray" BorderBrush="Black"/>
+            <Button Grid.Column="4" Content="Body and Color" Background="LightGray" BorderBrush="Black"/>
+        </Grid>
+        
+        <Viewbox Grid.Row="2" HorizontalAlignment="Center">
             <Image Name="theImage" Stretch="UniformToFill" Source="{Binding Bitmap}" />
         </Viewbox>
+        
         
     </Grid>
 </Window>
