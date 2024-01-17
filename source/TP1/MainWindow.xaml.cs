@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Resources;
 using System.Text;
@@ -69,6 +70,7 @@ namespace TP1
 
             InitializeComponent();
             DataContext = kinectManagerViewModel;
+            theImage.Source = this.bitmap;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -80,38 +82,43 @@ namespace TP1
         /// <param name="e">event arguments</param>
         private void Reader_ColorFrameArrived(object sender, ColorFrameArrivedEventArgs e)
         {
-            bool colorFrameProcessed = false;
-
-            // ColorFrame is IDisposable
             using (ColorFrame colorFrame = e.FrameReference.AcquireFrame())
             {
+                // If the color frame is null, do nothing
                 if (colorFrame != null)
                 {
+                    // Frame description to retreive the size of the frame
                     FrameDescription colorFrameDescription = colorFrame.FrameDescription;
-
-                    // verify data and write the new color frame data to the Writeable bitmap
-                    if ((colorFrameDescription.Width == this.bitmap.PixelWidth) && (colorFrameDescription.Height == this.bitmap.PixelHeight))
+                    
+                    // LockRawImageBuffer is used to retrieve the data of the new frame
+                    using (KinectBuffer colorBuffer = colorFrame.LockRawImageBuffer())
                     {
-                        if (colorFrame.RawColorImageFormat == ColorImageFormat.Bgra)
+                        // We lock the bitmap to be able to change its content
+                        this.bitmap.Lock();
+                        // We check that our frame has the same size as our bitmap
+                        if ((colorFrameDescription.Width == this.bitmap.PixelWidth) && (colorFrameDescription.Height == this.bitmap.PixelHeight))
                         {
-                           // colorFrame.CopyRawFrameDataToArray(this.bitmap.buffer);
-                        }
-                        else
-                        {
-                          //  colorFrame.CopyRawFrameDataToArray(this.bitmap.)CopyConvertedFrameDataToBuffer(this.bitmap.PixelBuffer, ColorImageFormat.Bgra);
-                        }
+                            // We send the new frame to the buffer of our bitmap 
+                            colorFrame.CopyConvertedFrameDataToIntPtr(
+                                this.bitmap.BackBuffer,
+                                (uint)(colorFrameDescription.Width * colorFrameDescription.Height * 4),
+                                ColorImageFormat.Bgra);
 
-                        colorFrameProcessed = true;
+                            // The new Invalidate method, specify the rectangle that must be changed in the bitmap (X and Y for the position, Widht and height, well, for widht and height
+                            // In our case, we want to invalidate all the bitmap
+                            this.bitmap.AddDirtyRect(new Int32Rect
+                            {
+                                X = 0,
+                                Y = 0,
+                                Width = this.bitmap.PixelWidth,
+                                Height = this.bitmap.PixelHeight
+                            });
+                        }
+                        // We unlock the bitmap to unable the display
+                        this.bitmap.Unlock();
                     }
                 }
             }
-
-            // we got a frame, render
-            if (colorFrameProcessed)
-            {
-                this.bitmap.Invalidate();
-            }
         }
-
     }
 }
