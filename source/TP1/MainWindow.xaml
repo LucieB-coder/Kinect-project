@@ -27,12 +27,11 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Ellipse Grid.Column="1" Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
-            <TextBlock VerticalAlignment="center" Grid.Column="2" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
+            <Ellipse Grid.Column="1" Fill="{Binding KinectStream.KinectManager.StatusColor}" Height="30" Width="30"/>
+            <TextBlock VerticalAlignment="center" Grid.Column="2" x:Name="StatusText" Text="{Binding KinectStream.KinectManager.StatusText}"/>
         </Grid>
         <Viewbox Grid.Row="1" HorizontalAlignment="Center">
-            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding Bitmap}" />
+            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding KinectStream.Bitmap}" />
         </Viewbox>
-        
     </Grid>
 </Window>

@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Model;
 using Microsoft.Kinect;
+using FirstKinectProject;
 
 namespace TP1
 {
@@ -26,35 +27,17 @@ namespace TP1
     /// </summary>
     public partial class MainWindow : Window
     {
-        /// <summary>
-        /// Size of the RGB pixel in the bitmap
-        /// </summary>
-        private readonly uint bytesPerPixel;
-
-        /// <summary>
-        /// Reader for color frames
-        /// </summary>
-        private ColorFrameReader colorFrameReader = null;
-
-        /// <summary>
-        /// Bitmap to display
-        /// </summary>
-        private WriteableBitmap bitmap = null;
-
-        /// <summary>
-        /// Intermediate storage for receiving frame data from the sensor
-        /// </summary>
-        private byte[] colorPixels = null;
-
-
+        private KinectStream? kinectStream; 
         public MainWindow()
         {
             KinectManager kinectManager = new KinectManager();
-            ColorImageStream colorImageStream = new ColorImageStream(kinectManager);
+            KinectStreamsFactory kinectStreamsFactory = new KinectStreamsFactory(kinectManager);
+            KinectStreamViewModel kinectStreamViewModel = new KinectStreamViewModel(kinectManager);
+
             kinectManager.StartSensor();
-            colorImageStream.Start();
+            kinectStreamViewModel.ChangeStream(KinectStreams.Color);
             InitializeComponent();
-            DataContext = colorImageStream;
+            DataContext = kinectStreamViewModel;
         }
     }
 }
