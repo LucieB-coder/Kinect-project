@@ -17,7 +17,7 @@
 </ItemGroup>
 
 <ItemGroup>
-  <ProjectReference Include="..\ViewModel_Wrapper\ViewModel_Wrapper.csproj" />
+  <ProjectReference Include="..\Model\Model.csproj" />
 </ItemGroup>
 
 </Project>

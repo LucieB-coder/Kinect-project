@@ -14,8 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Ellipse Fill="Green" Height="30" Width="30"/>
-        <Ellipse Grid.Row="1" Fill="Red" Height="30" Width="30"/>
+        <Ellipse Fill="{Binding StatusColor}" Height="30" Width="30"/>
         <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding StatusText}"/>
     </Grid>
 </Window>

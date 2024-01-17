@@ -1,4 +1,4 @@
-﻿using Microsoft.Kinect;
+﻿using Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ViewModel_Wrapper;
+using Model;
 
 namespace TP1
 {
@@ -26,10 +26,10 @@ namespace TP1
     {
         public MainWindow()
         {
-            KinectManagerViewModel kinectManagerViewModel = new KinectManagerViewModel();
-            kinectManagerViewModel.StartSensor();
+            KinectManager kinectManager = new KinectManager();
+            kinectManager.StartSensor();
             InitializeComponent();
-            DataContext = kinectManagerViewModel;
+            DataContext = kinectManager;
         }
 
     }
