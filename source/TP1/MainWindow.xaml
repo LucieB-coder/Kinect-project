@@ -9,12 +9,27 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="white" Margin="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Ellipse Fill="{Binding StatusColor}" Height="30" Width="30"/>
-        <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding StatusText}"/>
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Padding" Value="10,0" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Ellipse Grid.Column="1" Fill="{Binding StatusColor}" Height="30" Width="30"/>
+            <TextBlock VerticalAlignment="center" Grid.Column="2" x:Name="StatusText" Text="{Binding StatusText}"/>
+        </Grid>
+        
     </Grid>
 </Window>
