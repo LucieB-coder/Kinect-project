@@ -11,15 +11,28 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        
 
-        <Ellipse Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
-        <TextBlock Grid.Row="2" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
-        <Viewbox Grid.Row="3" HorizontalAlignment="Center">
+        <Grid Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Grid.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="Padding" Value="10,0" />
+                </Style>
+            </Grid.Resources>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Ellipse Grid.Column="1" Fill="{Binding KinectManager.StatusColor}" Height="30" Width="30"/>
+            <TextBlock VerticalAlignment="center" Grid.Column="2" x:Name="StatusText" Text="{Binding KinectManager.StatusText}"/>
+        </Grid>
+        <Viewbox Grid.Row="1" HorizontalAlignment="Center">
             <Image Name="theImage" Stretch="UniformToFill" Source="{Binding Bitmap}" />
         </Viewbox>
-
+        
     </Grid>
 </Window>
