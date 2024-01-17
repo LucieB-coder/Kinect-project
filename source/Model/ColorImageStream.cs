@@ -16,8 +16,6 @@ namespace Model
         {
         }
 
-        public ColorFrame? ColorFrame { get; set; }
-        public FrameDescription? FrameDescription { get; set; }
         private ColorFrameReader? ColorFrameReader { get; set; }
 
         public override void Start()
@@ -80,8 +78,10 @@ namespace Model
         
         public override void Stop()
         {
-            ColorFrame.Dispose();
-            KinectSensor.Close();
+            if (ColorFrameReader != null)
+            {
+                ColorFrameReader.Dispose();
+            }
         }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TP1"
+        xmlns:model="clr-namespace:Model;assembly=Model"
         mc:Ignorable="d"
         x:Name="root"
         Title="MainWindow" Height="450" Width="800">
@@ -45,8 +46,8 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
- 
-            <Button Grid.Column="0" Content="Color" Background="LightGray" BorderBrush="Black" Command="{Binding StartCommand}"/>
+
+            <Button Grid.Column="0" Content="Color" Background="LightGray" BorderBrush="Black" Command="{Binding KinectStreamViewModel.ChangeStreamCommand}" CommandParameter="{x:Static model:KinectStreams.Color}"/>
             <Button Grid.Column="1" Content="Depth" Background="LightGray" BorderBrush="Black"/>
             <Button Grid.Column="2" Content="Infrared" Background="LightGray" BorderBrush="Black"/>
             <Button Grid.Column="3" Content="Body" Background="LightGray" BorderBrush="Black"/>
@@ -54,7 +55,7 @@
         </Grid>
         
         <Viewbox Grid.Row="2" HorizontalAlignment="Center">
-            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding Bitmap}" />
+            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding KinectStreamViewModel.KinectStream.Bitmap}" />
         </Viewbox>
         
     </Grid>

@@ -27,17 +27,16 @@ namespace TP1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private KinectStream? kinectStream; 
+        public KinectManager KinectManager { get; private set; }
+
+        public KinectStreamViewModel KinectStreamViewModel { get; private set; }
         public MainWindow()
         {
-            KinectManager kinectManager = new KinectManager();
-            KinectStreamsFactory kinectStreamsFactory = new KinectStreamsFactory(kinectManager);
-            KinectStreamViewModel kinectStreamViewModel = new KinectStreamViewModel(kinectManager);
-
-            kinectManager.StartSensor();
-            kinectStreamViewModel.ChangeStream(KinectStreams.Color);
+            KinectManager = new KinectManager();
+            KinectStreamViewModel = new KinectStreamViewModel(KinectManager);
+            KinectManager.StartSensor();
             InitializeComponent();
-            DataContext = kinectStreamViewModel;
+            DataContext = this;
         }
     }
 }
