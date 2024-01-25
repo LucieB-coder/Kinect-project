@@ -32,7 +32,7 @@ namespace FirstKinectProject
         {
             if (kinectStream != null)
             {
-                KinectStream.Stop();
+                kinectStream.Stop();
             }
             KinectStream = KinectStreamsFactory[kinectStreams]();
             KinectStream.Start();

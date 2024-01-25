@@ -11,6 +11,7 @@ namespace Model
         None,
         Color,
         Depth,
-        IR
+        IR,
+        Body
     }
 }
