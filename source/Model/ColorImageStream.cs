@@ -16,12 +16,11 @@ namespace Model
         {
         }
 
-        private ColorFrameReader? ColorFrameReader { get; set; }
+        public ColorFrameReader? ColorFrameReader { get; set; }
 
         public override void Start()
         {
             ColorFrameReader = KinectSensor.ColorFrameSource.OpenReader();
-            this.ColorFrameReader = KinectSensor.ColorFrameSource.OpenReader();
 
             // wire handler for frame arrival
             ColorFrameReader.FrameArrived += FrameArrived;

@@ -12,6 +12,7 @@ namespace Model
         Color,
         Depth,
         IR,
-        Body
+        Body,
+        BodyColor
     }
 }
