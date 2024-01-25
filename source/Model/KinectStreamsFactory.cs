@@ -12,7 +12,8 @@ namespace Model
         {
             streamFactory = new Dictionary<KinectStreams, Func<KinectStream>>
             {
-                { KinectStreams.Color, () => new ColorImageStream(kinectManager) }
+                { KinectStreams.Color, () => new ColorImageStream(kinectManager) },
+                { KinectStreams.IR, () => new InfraredStream(kinectManager) }
             };
         }
 
