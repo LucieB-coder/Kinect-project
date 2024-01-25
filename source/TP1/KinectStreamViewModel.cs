@@ -21,6 +21,8 @@ namespace FirstKinectProject
 
         public KinectStreamsFactory KinectStreamsFactory { get; set; }
 
+        private KinectStreams? lastStream;
+
         public KinectStreamViewModel(KinectManager kinectManager) 
         { 
             KinectManager = kinectManager;
@@ -34,6 +36,12 @@ namespace FirstKinectProject
             {
                 kinectStream.Stop();
             }
+            if (lastStream == kinectStreams)
+            {
+                lastStream = KinectStreams.None;
+                return;
+            }
+            lastStream = kinectStreams;
             KinectStream = KinectStreamsFactory[kinectStreams]();
             KinectStream.Start();
         }
