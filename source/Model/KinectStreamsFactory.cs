@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace Model
             streamFactory = new Dictionary<KinectStreams, Func<KinectStream>>
             {
                 { KinectStreams.Color, () => new ColorImageStream(kinectManager) },
+                { KinectStreams.Depth, () => new DepthStream(kinectManager) },
                 { KinectStreams.IR, () => new InfraredStream(kinectManager) },
                 { KinectStreams.Body, () => new BodyStream(kinectManager) },
                 { KinectStreams.BodyColor, () => new BodyColorStream(kinectManager) },
