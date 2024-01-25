@@ -26,7 +26,7 @@ namespace Model
         // Body size
         private const double HandSize = 10;
         private const double JointThickness = 5;
-        private const double ClipBoundThickness = 10;
+        private const double ClipBoundThickness = 0;
         private const float InferredZPositionClamp = 0.1f;
 
         // Colors of the bodies
@@ -60,17 +60,22 @@ namespace Model
             this.kinectSensor = KinectManager.KinectSensor;
             this.drawingGroup = new DrawingGroup();
             this.bodies = new Body[this.kinectSensor.BodyFrameSource.BodyCount];
-            Start();
         }
+
 
         public override void Start()
         {
             this.KinectManager.StartSensor();
 
             this.coordinateMapper = this.kinectSensor.CoordinateMapper;
-            FrameDescription frameDescription = this.kinectSensor.DepthFrameSource.FrameDescription;
-            this.width = frameDescription.Width;
-            this.height = frameDescription.Height;
+            if (Bitmap == null)
+            {
+                FrameDescription frameDescription = this.kinectSensor.DepthFrameSource.FrameDescription;
+                this.width = frameDescription.Width;
+                this.height = frameDescription.Height;
+                this.Bitmap = new WriteableBitmap(this.width, this.height, 96, 96, PixelFormats.Bgra32, null);
+            }
+            
             this.bodyFrameReader = this.kinectSensor.BodyFrameSource.OpenReader();
 
             if (this.bodyFrameReader != null)
@@ -110,7 +115,7 @@ namespace Model
             this.bones.Add(new Tuple<JointType, JointType>(JointType.AnkleLeft, JointType.FootLeft));
 
             // create the bitmap to display
-            this.Bitmap = new WriteableBitmap(this.width, this.height, 96, 96, PixelFormats.Bgra32, null);
+            
         }
         private void BodyFrameArrived(object sender, BodyFrameArrivedEventArgs e)
         {
@@ -131,7 +136,7 @@ namespace Model
             {
                 using (DrawingContext dc = this.drawingGroup.Open())
                 {
-                    dc.DrawRectangle(Brushes.Black, null, new System.Windows.Rect(0.0, 0.0, this.width, this.height));
+                    //dc.DrawRectangle(Brushes.Black, null, new System.Windows.Rect(0.0, 0.0, this.width, this.height));
                     int penIndex = 0;
                     foreach (Body body in this.bodies)
                     {

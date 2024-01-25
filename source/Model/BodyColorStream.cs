@@ -15,10 +15,14 @@ namespace Model
     {
         private BodyStream BodyStream;
 
+        public KinectSensor KinectSensor { get; private set; }
+
         private ColorImageStream ColorImageStream;
 
         public BodyColorStream(KinectManager kinectManager) : base(kinectManager)
         {
+            KinectSensor = kinectManager.KinectSensor;
+            FrameDescription frameDescription = KinectSensor.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Rgba);
             BodyStream = new BodyStream(kinectManager);
             ColorImageStream = new ColorImageStream(kinectManager);
         }
@@ -32,10 +36,10 @@ namespace Model
             BodyStream.PropertyChanged += Stream_PropertyChanged;
 
 
-            FrameDescription colorFrameDescription = KinectSensor.ColorFrameSource.CreateFrameDescription(ColorImageFormat.Rgba);
+            FrameDescription frameDescription = KinectSensor.DepthFrameSource.FrameDescription;
 
             // create the bitmap to display
-            Bitmap = new WriteableBitmap(colorFrameDescription.Width, colorFrameDescription.Height, 96, 96, PixelFormats.Bgra32, null);
+            Bitmap = new WriteableBitmap(frameDescription.Width, frameDescription.Height, 96, 96, PixelFormats.Bgra32, null);
 
         }
 
@@ -46,40 +50,27 @@ namespace Model
                 // Suppose bitmap1 and bitmap2 are your two BitmapSource objects
                 WriteableBitmap bodyBitmap = BodyStream.Bitmap; // Initialize your first bitmap
                 WriteableBitmap colorBitmap = ColorImageStream.Bitmap; // Initialize your second bitmap
+                FrameDescription frameDescription = KinectSensor.DepthFrameSource.FrameDescription;
 
 
-                // Ensure that the dimensions of both bitmaps are the same
-                if (bodyBitmap.PixelWidth == colorBitmap.PixelWidth && bodyBitmap.PixelHeight == colorBitmap.PixelHeight)
+                WriteableBitmap resizedBitmap = new WriteableBitmap(frameDescription.Width, frameDescription.Height, bodyBitmap.DpiX, bodyBitmap.DpiY, bodyBitmap.Format, null);
+
+                using (resizedBitmap.GetBitmapContext())
                 {
-
-                    // Lock all three bitmaps
-                    bodyBitmap.Lock();
-                    colorBitmap.Lock();
-                    Bitmap.Lock();
-                    // Copy the pixels from bitmap1 to the combinedBitmap
-                    Bitmap.WritePixels(new Int32Rect(0, 0, bodyBitmap.PixelWidth, bodyBitmap.PixelHeight),
-                                                bodyBitmap.BackBuffer,
-                                                bodyBitmap.BackBufferStride,
-                                                0);
-
-                    // Calculate the offset for copying bitmap2
-                    int offset = bodyBitmap.BackBufferStride * bodyBitmap.PixelHeight;
-
-                    // Copy the pixels from bitmap2 to the combinedBitmap, using the calculated offset
-                    Bitmap.WritePixels(new Int32Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight),
-                                                colorBitmap.BackBuffer,
-                                                colorBitmap.BackBufferStride,
-                                                offset);
-
-                    // Ensure the changes are applied to the combinedBitmap
-                    Bitmap.AddDirtyRect(new Int32Rect(0, 0, Bitmap.PixelWidth, Bitmap.PixelHeight));
-                    // Unlock all three bitmaps
-                    bodyBitmap.Unlock();
-                    colorBitmap.Unlock();
-                    Bitmap.Unlock();
-                    
-                    // Now 'combinedBitmap' contains the combined image of 'bitmap1' and 'bitmap2'
+                    resizedBitmap.Blit(new Rect(0, 0, frameDescription.Width, frameDescription.Height), colorBitmap, new Rect(0, 0, colorBitmap.PixelWidth, colorBitmap.PixelHeight));
                 }
+
+                // Dessiner le premier bitmap en arrière-plan
+                Bitmap.Lock();
+                Bitmap.Blit(new Rect(0, 0, resizedBitmap.PixelWidth, resizedBitmap.PixelHeight),
+                        resizedBitmap, new Rect(0, 0, resizedBitmap.PixelWidth, resizedBitmap.PixelHeight));
+
+                // Dessiner le deuxième bitmap par-dessus
+                Bitmap.Blit(new Rect(0, 0, bodyBitmap.PixelWidth, bodyBitmap.PixelHeight),
+                                    bodyBitmap, new Rect(0, 0, bodyBitmap.PixelWidth, bodyBitmap.PixelHeight));
+
+                Bitmap.Unlock();
+                OnPropertyChanged(nameof(Bitmap));
             }
         }
 

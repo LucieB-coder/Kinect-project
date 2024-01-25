@@ -51,7 +51,7 @@
             <Button Grid.Column="1" Content="Depth" Background="LightGray" BorderBrush="Black"/>
             <Button Grid.Column="2" Content="Infrared" Background="LightGray" BorderBrush="Black" Command="{Binding KinectStreamViewModel.ChangeStreamCommand}" CommandParameter="{x:Static model:KinectStreams.IR}"/>
             <Button Grid.Column="3" Content="Body" Background="LightGray" BorderBrush="Black" Command="{Binding KinectStreamViewModel.ChangeStreamCommand}" CommandParameter="{x:Static model:KinectStreams.Body}"/>
-            <Button Grid.Column="4" Content="Body and Color" Background="LightGray" BorderBrush="Black"/>
+            <Button Grid.Column="4" Content="Body and Color" Background="LightGray" BorderBrush="Black" Command="{Binding KinectStreamViewModel.ChangeStreamCommand}" CommandParameter="{x:Static model:KinectStreams.BodyColor}"/>
         </Grid>
         
         <Viewbox Grid.Row="2" HorizontalAlignment="Center">
