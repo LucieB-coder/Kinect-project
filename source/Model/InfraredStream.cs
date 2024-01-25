@@ -29,7 +29,7 @@ namespace Model
             FrameDescription infraredFrameDescription = KinectSensor.InfraredFrameSource.FrameDescription;
 
             // create the bitmap to display
-            this.Bitmap = new WriteableBitmap(infraredFrameDescription.Width, infraredFrameDescription.Height, 96, 96, PixelFormats.Bgra32, null);
+            this.Bitmap = new WriteableBitmap(infraredFrameDescription.Width, infraredFrameDescription.Height, 96, 96, PixelFormats.Gray16, null);
 
         }
 
