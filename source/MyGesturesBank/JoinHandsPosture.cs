@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace MyGesturesBank
 {
-    public class RightHandUpPosture : Posture
+    internal class JoinHandsPosture : Posture
     {
-        public RightHandUpPosture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName) : base(gestureRecognized, gestureName)
+        public JoinHandsPosture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName) : base(gestureRecognized, gestureName)
         {
         }
 
@@ -26,17 +26,19 @@ namespace MyGesturesBank
 
         protected override bool TestPosture(Body body)
         {
-            // Get the right hand, right elbow and head joints
+            // Get the right hand and left hand joints
             Joint handRight = body.Joints[JointType.HandRight];
-            Joint elbowRight = body.Joints[JointType.ElbowRight];
-            Joint head = body.Joints[JointType.Head];
+            Joint handLeft = body.Joints[JointType.HandLeft];
 
-            // Check if the right hand is above the right elbow and over the head
-            if (handRight.Position.Y > elbowRight.Position.Y && handRight.Position.Y > head.Position.Y)
+            // Calculate the distance between left and right hand on the X and Y axis
+            float xDistance = Math.Abs(handRight.Position.X - handLeft.Position.X);
+            float yDistance = Math.Abs(handRight.Position.Y - handLeft.Position.Y);
+
+            // Check if both hands are joined
+            if(xDistance < 1 && yDistance < 1) 
             {
                 return true;
             }
-
             return false;
         }
     }
