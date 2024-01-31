@@ -32,9 +32,9 @@ namespace FirstKinectProject
 
         public void ChangeStream(KinectStreams kinectStreams) 
         {
-            if (kinectStream != null)
+            if (KinectStream != null)
             {
-                kinectStream.Stop();
+                KinectStream.Stop();
             }
             if (lastStream == kinectStreams)
             {
