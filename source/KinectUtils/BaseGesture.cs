@@ -11,7 +11,7 @@ namespace KinectUtils
     public abstract class BaseGesture
     {
         public EventHandler<GestureRecognizedEventArgs> GestureRecognized { get; set; }
-        public String GestureName { get; set; }
+        public string GestureName { get; set; }
 
         public BaseGesture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName)
         {
@@ -29,9 +29,9 @@ namespace KinectUtils
     internal delegate void GestureRecognizedEventHandler(object sender, GestureRecognizedEventArgs e);
     public class GestureRecognizedEventArgs : EventArgs
     {
-        public String GestureName { get; set; }
+        public string GestureName { get; set; }
 
-        public GestureRecognizedEventArgs( String gestureName )
+        public GestureRecognizedEventArgs( string gestureName )
         {
             GestureName = gestureName;
         }
