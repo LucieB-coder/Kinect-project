@@ -9,8 +9,16 @@ namespace KinectUtils
 {
     public abstract class Posture : BaseGesture
     {
-        public Posture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, EventHandler<GestureRecognizedEventArgs> gestureUnecognized, string gestureName) : base(gestureRecognized, gestureUnecognized, gestureName)
+        public EventHandler<GestureRecognizedEventArgs> GestureUnrecognized { get; set; }
+
+        public Posture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, EventHandler<GestureRecognizedEventArgs> gestureUnrecognized, string gestureName) : base(gestureRecognized, gestureName)
         {
+            GestureUnrecognized = gestureUnrecognized;
+        }
+
+        protected void OnGestureUnrecognized()
+        {
+            GestureUnrecognized?.Invoke(this, new GestureRecognizedEventArgs(GestureName));
         }
         protected abstract bool TestPosture(Body body);
     }

@@ -29,8 +29,6 @@ namespace MyGesturesBank
                     LastGesture = true;
                 }
                 Iteration = 0;
-
-
             }
             else
             {

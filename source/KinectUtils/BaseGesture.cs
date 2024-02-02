@@ -11,14 +11,12 @@ namespace KinectUtils
     public abstract class BaseGesture
     {
         public EventHandler<GestureRecognizedEventArgs> GestureRecognized { get; set; }
-        public EventHandler<GestureRecognizedEventArgs> GestureUnrecognized { get; set; }
 
         public string GestureName { get; set; }
 
-        public BaseGesture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, EventHandler<GestureRecognizedEventArgs> gestureUnecognized, string gestureName)
+        public BaseGesture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName)
         {
             GestureRecognized = gestureRecognized;
-            GestureUnrecognized = gestureUnecognized;
             GestureName = gestureName;
         }
 
@@ -28,10 +26,7 @@ namespace KinectUtils
             GestureRecognized?.Invoke(this, new GestureRecognizedEventArgs(GestureName));
         }
 
-        protected void OnGestureUnrecognized()
-        {
-            GestureUnrecognized?.Invoke(this, new GestureRecognizedEventArgs(GestureName));
-        }
+
     }
 
     internal delegate void GestureRecognizedEventHandler(object sender, GestureRecognizedEventArgs e);
