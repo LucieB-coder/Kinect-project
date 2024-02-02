@@ -10,9 +10,12 @@ namespace MyGesturesBank
 {
     public class RightHandUpPosture : Posture
     {
-        public RightHandUpPosture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName) : base(gestureRecognized, gestureName)
+        public RightHandUpPosture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, EventHandler<GestureRecognizedEventArgs> gestureUnecognized, string gestureName) : base(gestureRecognized, gestureUnecognized, gestureName)
         {
         }
+
+        private bool LastGesture = false;
+        private int Iteration = 0;
 
 
         public override void TestGesture(Body body)
@@ -21,7 +24,25 @@ namespace MyGesturesBank
             if (body != null && TestPosture(body))
             {
                 // Send a OnGestureRecognized event
-                OnGestureRecognized();
+                if (!LastGesture)
+                {
+                    OnGestureRecognized();
+                    LastGesture = true;
+                }
+                Iteration = 0;
+            }
+            else
+            {
+                if (LastGesture && Iteration == 10)
+                {
+                    OnGestureUnrecognized();
+                    LastGesture = false;
+                    Iteration = 0;
+                }
+                else
+                {
+                    Iteration++;
+                }
             }
         }
 
@@ -33,7 +54,7 @@ namespace MyGesturesBank
             Joint head = body.Joints[JointType.Head];
 
             // Check if the right hand is above the right elbow and over the head
-            if (handRight.Position.Y > elbowRight.Position.Y && handRight.Position.Y > head.Position.Y)
+            if (handRight.Position.Y > elbowRight.Position.Y && handRight.Position.Y > head.Position.Y && handRight.TrackingState != TrackingState.NotTracked && elbowRight.TrackingState != TrackingState.NotTracked && head.TrackingState != TrackingState.NotTracked)
             {
                 return true;
             }

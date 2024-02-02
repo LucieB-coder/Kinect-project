@@ -9,7 +9,7 @@ namespace KinectUtils
 {
     public abstract class Posture : BaseGesture
     {
-        public Posture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName) : base(gestureRecognized, gestureName)
+        public Posture(EventHandler<GestureRecognizedEventArgs> gestureRecognized, EventHandler<GestureRecognizedEventArgs> gestureUnecognized, string gestureName) : base(gestureRecognized, gestureUnecognized, gestureName)
         {
         }
         protected abstract bool TestPosture(Body body);

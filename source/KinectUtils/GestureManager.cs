@@ -14,7 +14,7 @@ namespace KinectUtils
 
         public static KinectManager KinectManager { get; set; }
 
-        public static ICollection<BaseGesture> KnownGestures { get; set; } = new List<BaseGesture>();
+        public static ObservableCollection<BaseGesture> KnownGestures { get; set; } = new ObservableCollection<BaseGesture>();
 
         public static BodyStream BodyStream { get; set; }
 
@@ -28,6 +28,15 @@ namespace KinectUtils
             }
             BodyStream.Start();
             BodyStream.kinectSensor.BodyFrameSource.FrameCaptured += BodyStream_FrameArrived;
+            KnownGestures.CollectionChanged += KnownGestures_CollectionChanged;
+        }
+
+        private static void KnownGestures_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            foreach(BaseGesture b in e.NewItems)
+            {
+                b.GestureRecognized += GestureRecognized;
+            }
         }
 
         public static void StopAcquiringFrame()
@@ -41,7 +50,10 @@ namespace KinectUtils
             {
                 foreach (var body in BodyStream.bodies)
                 {
-                    gesture.TestGesture(body);
+                    if (body != null)
+                    {
+                        gesture.TestGesture(body);
+                    }
                 }
             }
         }
