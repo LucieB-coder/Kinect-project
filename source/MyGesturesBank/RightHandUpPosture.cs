@@ -27,7 +27,7 @@ namespace MyGesturesBank
 
         protected override bool TestPosture(Body body)
         {
-            // Get the right hand, rught elbow and head joints
+            // Get the right hand, right elbow and head joints
             Joint handRight = body.Joints[JointType.HandRight];
             Joint elbowRight = body.Joints[JointType.ElbowRight];
             Joint head = body.Joints[JointType.Head];
