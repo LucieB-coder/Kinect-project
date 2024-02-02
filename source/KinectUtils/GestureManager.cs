@@ -18,19 +18,16 @@ namespace KinectUtils
 
         public static BodyStream BodyStream { get; set; }
 
-        public static int test { get; set; } = 0;
-
         public static void StartAcquiringFrame(KinectManager kinectManager)
         {
             //KinectStreamsFactory kinectStreamsFactory = new KinectStreamsFactory(kinectManager);
             BodyStream = new BodyStream(kinectManager);
-            GestureRecognized += GestureRecognizedTest;
-            BodyStream.PropertyChanged += BodyStream_FrameArrived;
             foreach(BaseGesture g in KnownGestures)
             {
                 g.GestureRecognized += GestureRecognized;
             }
             BodyStream.Start();
+            BodyStream.kinectSensor.BodyFrameSource.FrameCaptured += BodyStream_FrameArrived;
         }
 
         public static void StopAcquiringFrame()
@@ -38,8 +35,7 @@ namespace KinectUtils
             BodyStream.Stop();
         }
 
-
-        private static void BodyStream_FrameArrived(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private static void BodyStream_FrameArrived(object sender, Microsoft.Kinect.FrameCapturedEventArgs e)
         {
             foreach (var gesture in KnownGestures)
             {
@@ -50,9 +46,6 @@ namespace KinectUtils
             }
         }
 
-        private static void GestureRecognizedTest(object sender, GestureRecognizedEventArgs e)
-        {
-            test++;
-        }
+ 
     }
 }

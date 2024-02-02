@@ -14,10 +14,11 @@ namespace MyGesturesBank
         {
         }
 
+
         public override void TestGesture(Body body)
         {
             // Check Posture
-            if (TestPosture(body))
+            if (body != null && TestPosture(body))
             {
                 // Send a OnGestureRecognized event
                 OnGestureRecognized();
