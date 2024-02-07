@@ -2,21 +2,21 @@
 using Microsoft.Kinect;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MyGesturesBank
 {
-    public class SwipeRightHand : Gesture
+    public class DiagonalSlashRightHand : Gesture
     {
-        public SwipeRightHand(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName, int minNbOfFrames, int maxNbOfFrames) : base(gestureRecognized, gestureName, minNbOfFrames, maxNbOfFrames)
+        private float lastX = 0;
+        private float lastY = 0;
+        private int Iteration = 0;
+
+        public DiagonalSlashRightHand(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName, int minNbOfFrames, int maxNbOfFrames) : base(gestureRecognized, gestureName, minNbOfFrames, maxNbOfFrames)
         {
         }
-
-        private float lastX = 0;
-        private int Iteration = 0;
 
         public override void TestGesture(Body body)
         {
@@ -28,7 +28,6 @@ namespace MyGesturesBank
                     MCurrentFrameCount++;
                     return;
                 }
-                
             }
             else if (TestPosture(body) && TestRunningGesture(body))
             {
@@ -37,6 +36,7 @@ namespace MyGesturesBank
                 if (MCurrentFrameCount >= MinNbOfFrames && MCurrentFrameCount <= MaxNbOfFrames && TestEndCondition(body))
                 {
                     lastX = 5;
+                    lastY = 5;
                     IsTesting = false;
                     MCurrentFrameCount = 0;
                     OnGestureRecognized();
@@ -44,7 +44,7 @@ namespace MyGesturesBank
             }
             else
             {
-                if (Iteration == 5)
+                if (Iteration == 20)
                 {
                     MCurrentFrameCount = 0;
                     Iteration = 0;
@@ -57,55 +57,47 @@ namespace MyGesturesBank
             }
         }
 
-        protected override bool TestEndCondition(Body body)
+        protected override bool TestInitialConditions(Body body)
         {
             Joint handRight = body.Joints[JointType.HandRight];
-            Joint shoulder = body.Joints[JointType.ShoulderLeft];
+            Joint shoulderRight = body.Joints[JointType.ShoulderRight];
+            Joint elbowRight = body.Joints[JointType.ElbowRight];
             Joint head = body.Joints[JointType.Head];
-            Joint hip = body.Joints[JointType.HipLeft];
 
-            if (handRight.Position.Y < head.Position.Y && handRight.Position.X < shoulder.Position.X && handRight.Position.Y >= hip.Position.Y && hip.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulder.TrackingState != TrackingState.NotTracked)
+            if (handRight.Position.X > shoulderRight.Position.X && handRight.Position.Y > head.Position.Y && handRight.Position.Y > elbowRight.Position.Y && handRight.Position.X > elbowRight.Position.X && elbowRight.Position.X > shoulderRight.Position.X && head.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulderRight.TrackingState != TrackingState.NotTracked && elbowRight.TrackingState != TrackingState.NotTracked)
             {
+                lastX = handRight.Position.X;
+                lastY = handRight.Position.Y;
                 return true;
             }
             return false;
         }
 
-        protected override bool TestInitialConditions(Body body)
+        protected override bool TestEndCondition(Body body)
         {
             Joint handRight = body.Joints[JointType.HandRight];
-            Joint shoulder = body.Joints[JointType.ShoulderRight];
-            Joint head = body.Joints[JointType.Head];
+            Joint shoulderLeft = body.Joints[JointType.ShoulderLeft];
+            Joint hipLeft = body.Joints[JointType.HipLeft];
 
-
-            if (handRight.Position.X > shoulder.Position.X && handRight.Position.Y < head.Position.Y && head.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulder.TrackingState != TrackingState.NotTracked)
+            if (body.IsTracked && handRight.Position.Y < shoulderLeft.Position.Y && handRight.Position.X < hipLeft.Position.X && hipLeft.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulderLeft.TrackingState != TrackingState.NotTracked)
             {
-                lastX = handRight.Position.X;
                 return true;
-            } 
+            }
             return false;
         }
 
         protected override bool TestPosture(Body body)
         {
-            Joint handRight = body.Joints[JointType.HandRight];
-            Joint head = body.Joints[JointType.Head];
-            Joint hip = body.Joints[JointType.HipLeft];
-
-            if (handRight.Position.Y < head.Position.Y && handRight.Position.Y >= hip.Position.Y && hip.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && head.TrackingState != TrackingState.NotTracked)
-            {
-                return true;
-            }
-            return false;
+            return true;
         }
 
         protected override bool TestRunningGesture(Body body)
         {
             Joint handRight = body.Joints[JointType.HandRight];
-
-            if(handRight.Position.X <= lastX)
+            if (body.IsTracked && handRight.Position.X < lastX && handRight.Position.Y < lastY)
             {
                 lastX = handRight.Position.X;
+                lastY = handRight.Position.Y;
                 return true;
             }
             return false;
