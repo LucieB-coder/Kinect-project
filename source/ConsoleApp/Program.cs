@@ -18,18 +18,7 @@ namespace ConsoleApp
             kinectManager.KinectSensor.Open();
             GestureManager.GestureRecognized += GestureRecognizedTest;
 
-            var eventRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedHand);
-            var joinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedJoinHand);
-            var swipeRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedSwipeHand);
-
-
-            var eventUnrecognizedRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedHand);
-            var eventUnrecognizedjoinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedJoinHand);
-
-            GestureManager.KnownGestures.Add(new RightHandUpPosture(eventRightHand, eventUnrecognizedRightHand, "Right Hand"));
-            GestureManager.KnownGestures.Add(new JoinHandsPosture(joinRightHand, eventUnrecognizedjoinRightHand, "Join Hands"));
-            GestureManager.KnownGestures.Add(new SwipeRightHand(swipeRightHand, "Swipe Right Hands", 5, 100));
-
+            GestureManager.AddGesture(new AllGesturesFactory());
 
             GestureManager.StartAcquiringFrame(kinectManager);
             Console.ReadLine();
@@ -39,31 +28,6 @@ namespace ConsoleApp
         private static void GestureRecognizedTest(object sender, GestureRecognizedEventArgs e)
         {
             //Console.WriteLine(e.GestureName);
-        }
-
-        private static void GestureRecognizedHand(object sender, GestureRecognizedEventArgs e)
-        {
-           Console.WriteLine(e.GestureName + " Detected");
-        }
-
-        private static void GestureRecognizedSwipeHand(object sender, GestureRecognizedEventArgs e)
-        {
-            Console.WriteLine(e.GestureName + " Detected");
-        }
-
-        private static void GestureRecognizedJoinHand(object sender, GestureRecognizedEventArgs e)
-        {
-            Console.WriteLine(e.GestureName + " Detected");
-        }
-
-        private static void GestureUnrecognizedJoinHand(object sender, GestureRecognizedEventArgs e)
-        {
-            Console.WriteLine(e.GestureName + " Stopped");
-        }
-
-        private static void GestureUnrecognizedHand(object sender, GestureRecognizedEventArgs e)
-        {
-            Console.WriteLine(e.GestureName + " Stopped");
         }
     }
 }

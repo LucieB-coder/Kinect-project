@@ -31,6 +31,20 @@ namespace KinectUtils
             KnownGestures.CollectionChanged += KnownGestures_CollectionChanged;
         }
 
+        public static void AddGesture(IGestureFactory factory)
+        {
+            var list = factory.CreateGestures();
+            foreach(var g in list)
+            {
+                KnownGestures.Add(g);
+            }
+        }
+
+        public static void RemoveGesture(BaseGesture gesture)
+        {
+            KnownGestures.Remove(gesture);
+        }
+
         private static void KnownGestures_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             foreach(BaseGesture b in e.NewItems)
