@@ -30,7 +30,5 @@ namespace KinectUtils
         abstract protected bool TestEndCondition(Body body);
 
         abstract protected bool TestPosture(Body body);
-
-
     }
 }
