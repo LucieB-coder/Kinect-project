@@ -27,6 +27,9 @@ namespace FruitNinja
         [ObservableProperty]
         public int score = 0;
 
+        [ObservableProperty]
+        public int timer = 60;
+
         private Canvas Canvas;
 
         private Image Image;
@@ -54,17 +57,27 @@ namespace FruitNinja
             Image imgFruit = new Image();
             Canvas = canvas;
             CreateFruitImage();
+            Task.Run(() => StartTimer());
+        }
+
+        private void StartTimer()
+        {
+            while (Timer > 0)
+            {
+                Thread.Sleep(1000);
+                Timer -= 1;
+            }
         }
 
         private void BindGestures()
         {
-            var swipeRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognized);
-            var diagonalSlashRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognized);
-            var diagonalSlashLeftHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognized);
+            var gestureRecognized = new EventHandler<GestureRecognizedEventArgs>(GestureRecognized);
+   
 
-            GestureManager.AddGesture(new SwipeRightHand(swipeRightHand, "swipeRightHand", 5, 100));
-            GestureManager.AddGesture(new DiagonalSlashRightHand(diagonalSlashRightHand, "diagonalSlashRightHand", 5, 200));
-            GestureManager.AddGesture(new DiagonalSlashLeftHand(diagonalSlashLeftHand, "diagonalSlashLeftHand", 5, 200));
+            GestureManager.AddGesture(new SwipeRightHand(gestureRecognized, "swipeRightHand", 5, 100));
+            GestureManager.AddGesture(new SwipeLeftHand(gestureRecognized, "swipeLeftHand", 5, 100));
+            GestureManager.AddGesture(new DiagonalSlashRightHand(gestureRecognized, "diagonalSlashRightHand", 5, 200));
+            GestureManager.AddGesture(new DiagonalSlashLeftHand(gestureRecognized, "diagonalSlashLeftHand", 5, 200));
         }
 
         private void GestureRecognized(object sender, GestureRecognizedEventArgs e)
@@ -92,6 +105,13 @@ namespace FruitNinja
                         CreateFruitImage();
                     }
                     break;
+                case "swipeLeftHand":
+                    if (GestureToExecute == GestureEnum.SwipeLeftHand)
+                    {
+                        Score++;
+                        CreateFruitImage();
+                    }
+                    break;
                 default:
                     return;
             }
@@ -114,7 +134,7 @@ namespace FruitNinja
             }
 
             Random r = new Random();
-            var nb = r.Next(0, 3);
+            var nb = r.Next(0, 4);
 
             BitmapImage bitmapImage = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\PunchingBag.png"));
             BitmapImage bitmapArrow = new BitmapImage();
@@ -132,6 +152,10 @@ namespace FruitNinja
                 case 2:
                     GestureToExecute= GestureEnum.SwipeRightHand;
                     bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\RightArrow.png"));
+                    break;
+                case 3:
+                    GestureToExecute = GestureEnum.SwipeLeftHand;
+                    bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\LeftArrow.png"));
                     break;
                 default:
                     break;

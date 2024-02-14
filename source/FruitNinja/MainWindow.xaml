@@ -8,17 +8,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <Button Grid.Row="0" Content="Start Game" Background="LightGray" BorderBrush="Black" Command="{Binding GameViewModel.StartGameCommand}" Height="20" VerticalAlignment="Top" Width="70"/>
-
-        <Grid Grid.Row="1">
-            <Image Name="theImage" Stretch="UniformToFill" Source="{Binding GameViewModel.Bitmap}" />
-            <Canvas x:Name="myCanvas">
-            </Canvas>
-        </Grid>
-        
+        <Image Name="theImage" Stretch="UniformToFill" Source="{Binding GameViewModel.Bitmap}" />
+        <Canvas x:Name="myCanvas"/>
+        <TextBlock Text="{Binding GameViewModel.Score}" HorizontalAlignment="Left" Margin="50,20,0,0"/>
+        <TextBlock Text="{Binding GameViewModel.Timer}" HorizontalAlignment="Right" Margin="0,20,50,0"/>
     </Grid>
 </Window>

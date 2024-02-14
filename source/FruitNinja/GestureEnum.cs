@@ -10,6 +10,7 @@ namespace FruitNinja
     {
         DiagonalSlashRightHand = 0,
         DiagonalSlashLeftHand = 1,
-        SwipeRightHand = 2
+        SwipeRightHand = 2,
+        SwipeLeftHand = 3,
     }
 }
