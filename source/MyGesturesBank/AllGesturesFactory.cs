@@ -14,15 +14,18 @@ namespace MyGesturesBank
             var list = new List<BaseGesture>();
             var eventRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedHand);
             var joinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedJoinHand);
+            var crossHands = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedCrossHands);
             var swipeLeftHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedSwipeLeftHand);
             var swipeRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedSwipeHand);
             var diagonalSlashRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedDiagonalSlashRightHand);
 
             var eventUnrecognizedRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedHand);
             var eventUnrecognizedjoinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedJoinHand);
+            var eventUnrecognizedCrossHands = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedCrossHands);
 
             list.Add(new RightHandUpPosture(eventRightHand, eventUnrecognizedRightHand, "Right Hand"));
             list.Add(new JoinHandsPosture(joinRightHand, eventUnrecognizedjoinRightHand, "Join Hands"));
+            list.Add(new CrossHandsPosture(crossHands, eventUnrecognizedCrossHands, "Cross hands"));
             list.Add(new SwipeRightHand(swipeRightHand, "Swipe Right Hands", 5, 100));
             list.Add(new DiagonalSlashRightHand(diagonalSlashRightHand, "j't'ai cassé", 5, 200));
             list.Add(new SwipeLeftHand(swipeLeftHand, "Swipe Left Hand", 5, 100));
@@ -32,6 +35,10 @@ namespace MyGesturesBank
         }
 
         private void GestureRecognizedHand(object sender, GestureRecognizedEventArgs e)
+        {
+            Console.WriteLine(e.GestureName + " Detected");
+        }
+        private void GestureRecognizedCrossHands(object sender, GestureRecognizedEventArgs e)
         {
             Console.WriteLine(e.GestureName + " Detected");
         }
@@ -52,6 +59,11 @@ namespace MyGesturesBank
         }
 
         private void GestureUnrecognizedJoinHand(object sender, GestureRecognizedEventArgs e)
+        {
+            Console.WriteLine(e.GestureName + " Stopped");
+        }
+
+        private void GestureUnrecognizedCrossHands(object sender, GestureRecognizedEventArgs e)
         {
             Console.WriteLine(e.GestureName + " Stopped");
         }
