@@ -5,7 +5,9 @@ using Model;
 using MyGesturesBank;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -135,27 +137,45 @@ namespace FruitNinja
 
             Random r = new Random();
             var nb = r.Next(0, 4);
+            var nbImage = r.Next(0, 4);
 
-            BitmapImage bitmapImage = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\PunchingBag.png"));
+            BitmapImage bitmapImage = new BitmapImage();
             BitmapImage bitmapArrow = new BitmapImage();
+            string directory = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            switch (nbImage)
+            {
+                case 0:
+                    
+                    bitmapImage = new BitmapImage(new Uri(directory + "/../../../res/PunchingBag.png"));
+                    break;
+                case 1:
+                    bitmapImage = new BitmapImage(new Uri(directory + "/../../../res/Bridge.png"));
+                    break;
+                case 2:
+                    bitmapImage = new BitmapImage(new Uri(directory + "/../../../res/Baguette.png"));
+                    break;
+                case 3:
+                    bitmapImage = new BitmapImage(new Uri(directory + "/../../../res/Gland.png"));
+                    break;
+            }
 
             switch (nb)
             {
                 case 0:
                     GestureToExecute = GestureEnum.DiagonalSlashRightHand;
-                    bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\RightDiagonnalArrow.png"));
+                    bitmapArrow = new BitmapImage(new Uri(directory + "/../../../res/RightDiagonnalArrow.png"));
                     break;
                 case 1:
                     GestureToExecute = GestureEnum.DiagonalSlashLeftHand;
-                    bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\LeftDiagonnalArrow.png"));
+                    bitmapArrow = new BitmapImage(new Uri(directory + "/../../../res/LeftDiagonnalArrow.png"));
                     break;
                 case 2:
                     GestureToExecute= GestureEnum.SwipeRightHand;
-                    bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\RightArrow.png"));
+                    bitmapArrow = new BitmapImage(new Uri(directory + "/../../../res/RightArrow.png"));
                     break;
                 case 3:
                     GestureToExecute = GestureEnum.SwipeLeftHand;
-                    bitmapArrow = new BitmapImage(new Uri("U:\\kinect\\source\\FruitNinja\\res\\LeftArrow.png"));
+                    bitmapArrow = new BitmapImage(new Uri(directory + "/../../../res/LeftArrow.png"));
                     break;
                 default:
                     break;
@@ -163,8 +183,8 @@ namespace FruitNinja
 
             Image = new Image();
             Image.Source = bitmapImage;
-            Image.Width = 200;
-            Image.Height = 100;
+            Image.Width = 300;
+            Image.Height = 300;
 
             Canvas.SetLeft(Image, 0);
             Canvas.SetTop(Image, 0);
@@ -174,14 +194,14 @@ namespace FruitNinja
 
 
             // Déplacer l'image
-            Canvas.SetLeft(Image, Canvas.GetLeft(Image) + 100);
-            Canvas.SetTop(Image, Canvas.GetTop(Image) + 100);
+            Canvas.SetLeft(Image, Canvas.GetLeft(Image) + 75);
+            Canvas.SetTop(Image, Canvas.GetTop(Image) + 50);
 
             Arrow = new Image();
 
             Arrow.Source = bitmapArrow;
-            Arrow.Width = 200;
-            Arrow.Height = 100;
+            Arrow.Width = 400;
+            Arrow.Height = 250;
 
             Canvas.SetLeft(Arrow, 0);
             Canvas.SetTop(Arrow, 0);
@@ -191,8 +211,8 @@ namespace FruitNinja
 
 
             // Déplacer l'image
-            Canvas.SetLeft(Arrow, Canvas.GetLeft(Arrow) + 100);
-            Canvas.SetTop(Arrow, Canvas.GetTop(Arrow) + 100);
+            Canvas.SetLeft(Arrow, Canvas.GetLeft(Arrow) + 25);
+            Canvas.SetTop(Arrow, Canvas.GetTop(Arrow) + 75);
         }
     }
 }
