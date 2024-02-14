@@ -10,7 +10,14 @@
 </PropertyGroup>
 
 <ItemGroup>
-  <None Include="res\LeftArrow.png" />
+  <None Remove="res\Bridge.png" />
+  <None Remove="res\Fruit.png" />
+  <None Remove="res\Gland.png" />
+  <None Remove="res\LeftArrow.png" />
+  <None Remove="res\LeftDiagonnalArrow.png" />
+  <None Remove="res\PunchingBag.png" />
+  <None Remove="res\RightArrow.png" />
+  <None Remove="res\RightDiagonnalArrow.png" />
 </ItemGroup>
 
 <ItemGroup>
@@ -22,6 +29,20 @@
   <ProjectReference Include="..\KinectUtils\KinectUtils.csproj" />
   <ProjectReference Include="..\Model\Model.csproj" />
   <ProjectReference Include="..\MyGesturesBank\MyGesturesBank.csproj" />
+</ItemGroup>
+
+<ItemGroup>
+  <Resource Include="res\Bridge.png" />
+  <Resource Include="res\Fruit.png" />
+  <Resource Include="res\Gland.png" />
+</ItemGroup>
+
+<ItemGroup>
+  <Resource Include="res\LeftArrow.png" />
+  <Resource Include="res\LeftDiagonnalArrow.png" />
+  <Resource Include="res\PunchingBag.png" />
+  <Resource Include="res\RightArrow.png" />
+  <Resource Include="res\RightDiagonnalArrow.png" />
 </ItemGroup>
 
 </Project>

@@ -10,7 +10,7 @@
     <Grid>
         <Image Name="theImage" Stretch="UniformToFill" Source="{Binding GameViewModel.Bitmap}" />
         <Canvas x:Name="myCanvas"/>
-        <TextBlock Text="{Binding GameViewModel.Score}" HorizontalAlignment="Left" Margin="50,20,0,0"/>
-        <TextBlock Text="{Binding GameViewModel.Timer}" HorizontalAlignment="Right" Margin="0,20,50,0"/>
+        <TextBlock Text="{Binding GameViewModel.Score}" HorizontalAlignment="Left" Margin="50,20,0,0" FontSize="30" FontStyle="Oblique"/>
+        <TextBlock Text="{Binding GameViewModel.Timer}" HorizontalAlignment="Right" Margin="0,20,50,0" FontSize="30" FontStyle="Oblique"/>
     </Grid>
 </Window>

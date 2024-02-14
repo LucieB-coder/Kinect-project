@@ -29,8 +29,8 @@ namespace FruitNinja
             InitializeComponent();
             Canvas canvas = myCanvas;
             KinectManager = new KinectManager();
-            GameViewModel = new GameViewModel(KinectManager, canvas);
             KinectManager.StartSensor();
+            GameViewModel = new GameViewModel(KinectManager, canvas);
             DataContext = this;
         }
     }
