@@ -21,6 +21,7 @@ namespace KinectUtils
         }
 
         public abstract void TestGesture(Body body);
+
         protected void OnGestureRecognized()
         {
             GestureRecognized?.Invoke(this, new GestureRecognizedEventArgs(GestureName));

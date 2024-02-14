@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MyGesturesBank
 {
-    public class DiagonalSlashRightHand : Gesture
+    public class DiagonalSlashLeftHand : Gesture
     {
         private float lastX = 0;
         private float lastY = 0;
         private int Iteration = 0;
 
-        public DiagonalSlashRightHand(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName, int minNbOfFrames, int maxNbOfFrames) : base(gestureRecognized, gestureName, minNbOfFrames, maxNbOfFrames)
+        public DiagonalSlashLeftHand(EventHandler<GestureRecognizedEventArgs> gestureRecognized, string gestureName, int minNbOfFrames, int maxNbOfFrames) : base(gestureRecognized, gestureName, minNbOfFrames, maxNbOfFrames)
         {
         }
 
@@ -59,15 +59,15 @@ namespace MyGesturesBank
 
         protected override bool TestInitialConditions(Body body)
         {
-            Joint handRight = body.Joints[JointType.HandRight];
-            Joint shoulderRight = body.Joints[JointType.ShoulderRight];
-            Joint elbowRight = body.Joints[JointType.ElbowRight];
+            Joint handLeft = body.Joints[JointType.HandLeft];
+            Joint shoulderLeft = body.Joints[JointType.ShoulderLeft];
+            Joint elbowLeft = body.Joints[JointType.ElbowLeft];
             Joint head = body.Joints[JointType.Head];
 
-            if (handRight.Position.X > shoulderRight.Position.X && handRight.Position.Y > head.Position.Y && handRight.Position.Y > elbowRight.Position.Y && handRight.Position.X > elbowRight.Position.X && elbowRight.Position.X > shoulderRight.Position.X && head.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulderRight.TrackingState != TrackingState.NotTracked && elbowRight.TrackingState != TrackingState.NotTracked)
+            if (handLeft.Position.X < shoulderLeft.Position.X && handLeft.Position.Y > head.Position.Y && handLeft.Position.Y > elbowLeft.Position.Y && handLeft.Position.X < elbowLeft.Position.X && elbowLeft.Position.X < shoulderLeft.Position.X && head.TrackingState != TrackingState.NotTracked && handLeft.TrackingState != TrackingState.NotTracked && shoulderLeft.TrackingState != TrackingState.NotTracked && elbowLeft.TrackingState != TrackingState.NotTracked)
             {
-                lastX = handRight.Position.X;
-                lastY = handRight.Position.Y;
+                lastX = handLeft.Position.X;
+                lastY = handLeft.Position.Y;
                 return true;
             }
             return false;
@@ -75,11 +75,11 @@ namespace MyGesturesBank
 
         protected override bool TestEndCondition(Body body)
         {
-            Joint handRight = body.Joints[JointType.HandRight];
-            Joint shoulderLeft = body.Joints[JointType.ShoulderLeft];
-            Joint hipLeft = body.Joints[JointType.HipLeft];
+            Joint handLeft = body.Joints[JointType.HandLeft];
+            Joint shoulderRight = body.Joints[JointType.ShoulderLeft];
+            Joint hipRight = body.Joints[JointType.HipLeft];
 
-            if (handRight.Position.Y < shoulderLeft.Position.Y && handRight.Position.X < hipLeft.Position.X && hipLeft.TrackingState != TrackingState.NotTracked && handRight.TrackingState != TrackingState.NotTracked && shoulderLeft.TrackingState != TrackingState.NotTracked)
+            if (handLeft.Position.Y < shoulderRight.Position.Y && handLeft.Position.X > hipRight.Position.X && hipRight.TrackingState != TrackingState.NotTracked && handLeft.TrackingState != TrackingState.NotTracked && shoulderRight.TrackingState != TrackingState.NotTracked)
             {
                 return true;
             }
@@ -93,11 +93,11 @@ namespace MyGesturesBank
 
         protected override bool TestRunningGesture(Body body)
         {
-            Joint handRight = body.Joints[JointType.HandRight];
-            if (handRight.Position.X < lastX && handRight.Position.Y < lastY)
+            Joint handLeft = body.Joints[JointType.HandLeft];
+            if (handLeft.Position.X > lastX && handLeft.Position.Y < lastY)
             {
-                lastX = handRight.Position.X;
-                lastY = handRight.Position.Y;
+                lastX = handLeft.Position.X;
+                lastY = handLeft.Position.Y;
                 return true;
             }
             return false;
