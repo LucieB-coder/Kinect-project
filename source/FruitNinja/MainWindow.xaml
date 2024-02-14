@@ -8,6 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
         <Image Name="theImage" Stretch="UniformToFill" Source="{Binding GameViewModel.Bitmap}" />
         <Canvas x:Name="myCanvas"/>
         <TextBlock Text="{Binding GameViewModel.Score}" HorizontalAlignment="Left" Margin="50,20,0,0" FontSize="30" FontStyle="Oblique"/>

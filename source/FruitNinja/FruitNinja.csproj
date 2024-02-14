@@ -10,13 +10,11 @@
 </PropertyGroup>
 
 <ItemGroup>
-<<<<<<< HEAD
   <None Remove="res\Pray.jpg" />
 </ItemGroup>
 
 <ItemGroup>
   <None Include="res\LeftArrow.png" />
-=======
   <None Remove="res\Bridge.png" />
   <None Remove="res\Fruit.png" />
   <None Remove="res\Gland.png" />
@@ -25,7 +23,6 @@
   <None Remove="res\PunchingBag.png" />
   <None Remove="res\RightArrow.png" />
   <None Remove="res\RightDiagonnalArrow.png" />
->>>>>>> fa1d4ad546acf4aa9a38107fde4488374897bcd3
 </ItemGroup>
 
 <ItemGroup>
@@ -40,9 +37,7 @@
 </ItemGroup>
 
 <ItemGroup>
-<<<<<<< HEAD
   <Resource Include="res\Pray.jpg" />
-=======
   <Resource Include="res\Bridge.png" />
   <Resource Include="res\Fruit.png" />
   <Resource Include="res\Gland.png" />
@@ -54,7 +49,6 @@
   <Resource Include="res\PunchingBag.png" />
   <Resource Include="res\RightArrow.png" />
   <Resource Include="res\RightDiagonnalArrow.png" />
->>>>>>> fa1d4ad546acf4aa9a38107fde4488374897bcd3
 </ItemGroup>
 
 </Project>

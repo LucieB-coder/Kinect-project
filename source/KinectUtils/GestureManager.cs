@@ -56,17 +56,24 @@ namespace KinectUtils
 
         private static void KnownGestures_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            foreach(BaseGesture b in e.NewItems)
+            if (e.NewItems != null)
             {
-                b.GestureRecognized += GestureRecognized;
-            }
-            foreach(BaseGesture b in e.OldItems)
-            {
-                if (b.GestureRecognized != null)
+                foreach (BaseGesture b in e.NewItems)
                 {
-                    b.GestureRecognized -= GestureRecognized;
+                    b.GestureRecognized += GestureRecognized;
                 }
             }
+            
+            if (e.OldItems != null)
+            {
+                foreach (BaseGesture b in e.OldItems)
+                {
+                    if (b.GestureRecognized != null)
+                    {
+                        b.GestureRecognized -= GestureRecognized;
+                    }
+                }
+            } 
         }
 
         public static void StopAcquiringFrame()
@@ -78,17 +85,24 @@ namespace KinectUtils
         private static void BodyStream_FrameArrived(object sender, Microsoft.Kinect.FrameCapturedEventArgs e)
         {
             BodyFrameArrived?.Invoke(sender, new BodyFramedArrivedEventArgs(BodyStream.bodies));
-
-            foreach (var gesture in KnownGestures)
+            try
             {
-                foreach (var body in BodyStream.bodies)
+                foreach (var gesture in KnownGestures)
                 {
-                    if (body != null)
+                    foreach (var body in BodyStream.bodies)
                     {
-                        gesture.TestGesture(body);
+                        if (body != null)
+                        {
+                            gesture.TestGesture(body);
+                        }
                     }
                 }
             }
+            catch
+            {
+
+            }
+            
         }
 
         internal delegate void BodyFramedArrivedEventHandler(object sender, BodyFramedArrivedEventArgs e);

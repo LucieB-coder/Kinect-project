@@ -24,13 +24,16 @@ namespace FruitNinja
         public KinectManager KinectManager { get; private set; }
         public GameViewModel GameViewModel { get; private set; }
 
+
         public MainWindow()
         {
             InitializeComponent();
             Canvas canvas = myCanvas;
+            Frame frame = MainFrame;
             KinectManager = new KinectManager();
             KinectManager.StartSensor();
             GameViewModel = new GameViewModel(KinectManager, canvas);
+            
             DataContext = this;
         }
     }

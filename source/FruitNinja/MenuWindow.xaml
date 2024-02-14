@@ -7,11 +7,13 @@
         mc:Ignorable="d"
         Title="MenuWindow" Height="450" Width="800">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Frame x:Name="MenuFrame" NavigationUIVisibility="Hidden" />
         <Label HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="50">KILL YOUR ENEMY</Label>
         <Grid Margin="0,40,0,0" Grid.Row="1" HorizontalAlignment="Center">
             <Grid.RowDefinitions>
