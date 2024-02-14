@@ -10,6 +10,10 @@
 </PropertyGroup>
 
 <ItemGroup>
+  <None Remove="res\Pray.jpg" />
+</ItemGroup>
+
+<ItemGroup>
   <None Include="res\LeftArrow.png" />
 </ItemGroup>
 
@@ -22,6 +26,10 @@
   <ProjectReference Include="..\KinectUtils\KinectUtils.csproj" />
   <ProjectReference Include="..\Model\Model.csproj" />
   <ProjectReference Include="..\MyGesturesBank\MyGesturesBank.csproj" />
+</ItemGroup>
+
+<ItemGroup>
+  <Resource Include="res\Pray.jpg" />
 </ItemGroup>
 
 </Project>

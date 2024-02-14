@@ -1,0 +1,27 @@
+﻿<Window x:Class="FruitNinja.MenuWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FruitNinja"
+        mc:Ignorable="d"
+        Title="MenuWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" FontWeight="ExtraBold" FontSize="50">KILL YOUR ENEMY</Label>
+        <Grid Margin="0,40,0,0" Grid.Row="1" HorizontalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label FontWeight="Bold" FontSize="20" Grid.Row="0">Pray the gods to give you the strenght to kill your enemy</Label>
+            <Label Grid.Row="1" HorizontalAlignment="Center">(and start the game)</Label>
+        </Grid>
+        
+        <Image VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="2" Source="res/Pray.jpg" Width="200" Height="200"/>
+    </Grid>
+</Window>
