@@ -16,7 +16,7 @@ namespace ConsoleApp
         { 
             KinectManager kinectManager = new KinectManager();
             kinectManager.KinectSensor.Open();
-            //GestureManager.GestureRecognized += GestureRecognizedTest;
+            GestureManager.GestureRecognized += GestureRecognizedTest;
 
             GestureManager.AddGesture(new AllGesturesFactory());
 
@@ -25,6 +25,12 @@ namespace ConsoleApp
             GestureManager.StopAcquiringFrame();
         }
 
- 
+        static void GestureRecognizedTest(object sender, GestureRecognizedEventArgs e)
+        {
+            Console.WriteLine(e.GestureName);
+        }
+
+
+
     }
 }

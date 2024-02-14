@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FirstKinectProject", "TP1\F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{00E8AF6C-7B5E-455E-9D7D-88A1E1CAB436}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KinectUtils", "KinectUtils\KinectUtils.csproj", "{132497F7-AD80-44BF-A042-8C166A4C492B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KinectUtils", "KinectUtils\KinectUtils.csproj", "{132497F7-AD80-44BF-A042-8C166A4C492B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyGesturesBank", "MyGesturesBank\MyGesturesBank.csproj", "{D7231652-85B9-46CC-9E28-5480F6B282D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyGesturesBank", "MyGesturesBank\MyGesturesBank.csproj", "{D7231652-85B9-46CC-9E28-5480F6B282D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{20644283-0B3F-42E9-AE3F-DA5B1333EE5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp", "ConsoleApp\ConsoleApp.csproj", "{20644283-0B3F-42E9-AE3F-DA5B1333EE5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FruitNinja", "FruitNinja\FruitNinja.csproj", "{6E0B30D0-3CA0-4A6B-B6C0-8018962A68D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{20644283-0B3F-42E9-AE3F-DA5B1333EE5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20644283-0B3F-42E9-AE3F-DA5B1333EE5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20644283-0B3F-42E9-AE3F-DA5B1333EE5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E0B30D0-3CA0-4A6B-B6C0-8018962A68D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E0B30D0-3CA0-4A6B-B6C0-8018962A68D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E0B30D0-3CA0-4A6B-B6C0-8018962A68D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E0B30D0-3CA0-4A6B-B6C0-8018962A68D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

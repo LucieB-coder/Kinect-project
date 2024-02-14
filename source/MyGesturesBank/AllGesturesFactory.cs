@@ -16,6 +16,7 @@ namespace MyGesturesBank
             var joinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedJoinHand);
             var swipeRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedSwipeHand);
             var diagonalSlashRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedDiagonalSlashRightHand);
+            var diagonalSlashLeftHand = new EventHandler<GestureRecognizedEventArgs>(GestureRecognizedDiagonalSlashLeftHand);
 
             var eventUnrecognizedRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedHand);
             var eventUnrecognizedjoinRightHand = new EventHandler<GestureRecognizedEventArgs>(GestureUnrecognizedJoinHand);
@@ -23,7 +24,9 @@ namespace MyGesturesBank
             list.Add(new RightHandUpPosture(eventRightHand, eventUnrecognizedRightHand, "Right Hand"));
             list.Add(new JoinHandsPosture(joinRightHand, eventUnrecognizedjoinRightHand, "Join Hands"));
             list.Add(new SwipeRightHand(swipeRightHand, "Swipe Right Hands", 5, 100));
-            list.Add(new DiagonalSlashRightHand(diagonalSlashRightHand, "j't'ai cassé", 5, 200));
+            list.Add(new DiagonalSlashRightHand(diagonalSlashRightHand, "j't'ai cassé droite", 5, 200));
+            list.Add(new DiagonalSlashLeftHand(diagonalSlashLeftHand, "j't'ai cassé gauche", 5, 200));
+
 
 
             return list;
@@ -56,7 +59,12 @@ namespace MyGesturesBank
 
         private static void GestureRecognizedDiagonalSlashRightHand(object sender, GestureRecognizedEventArgs e)
         {
-            Console.WriteLine(e.GestureName);
+            Console.WriteLine(e.GestureName + " Detected");
+        }
+
+        private static void GestureRecognizedDiagonalSlashLeftHand(object sender, GestureRecognizedEventArgs e)
+        {
+            Console.WriteLine(e.GestureName + " Detected");
         }
     }
 }

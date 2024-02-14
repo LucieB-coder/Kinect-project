@@ -22,7 +22,7 @@ namespace MyGesturesBank
         {
             if (MCurrentFrameCount == 0)
             {
-                if (TestInitialConditions(body))
+                if (body.IsTracked && TestInitialConditions(body))
                 {
                     IsTesting = true;
                     MCurrentFrameCount++;
@@ -30,7 +30,7 @@ namespace MyGesturesBank
                 }
                 
             }
-            else if (TestPosture(body) && TestRunningGesture(body))
+            else if (body.IsTracked && TestPosture(body) && TestRunningGesture(body))
             {
                 Iteration = 0;
                 MCurrentFrameCount++;

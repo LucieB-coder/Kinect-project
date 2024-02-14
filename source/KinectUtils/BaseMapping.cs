@@ -20,12 +20,17 @@ namespace KinectUtils
 
         public void SubscribeToStartGesture(BaseGesture gesture)
         {
-            gesture.GestureRecognized += OnMapping;
+
         }
 
         public void SubscribeToEndGesture(BaseGesture gesture)
         {
-            
+
+        }
+
+        public void SubscribeToToggleGesture(BaseGesture gesture)
+        {
+
         }
 
         public abstract T Mapping(Body body);

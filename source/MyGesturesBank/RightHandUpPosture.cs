@@ -21,7 +21,8 @@ namespace MyGesturesBank
         public override void TestGesture(Body body)
         {
             // Check Posture
-            if (body != null && TestPosture(body))
+
+            if (body.IsTracked && TestPosture(body))
             {
                 // Send a OnGestureRecognized event
                 if (!LastGesture)
@@ -33,7 +34,7 @@ namespace MyGesturesBank
             }
             else
             {
-                if (LastGesture && Iteration == 10)
+                if (LastGesture && Iteration == 20)
                 {
                     OnGestureUnrecognized();
                     LastGesture = false;

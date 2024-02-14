@@ -20,7 +20,7 @@ namespace MyGesturesBank
         public override void TestGesture(Body body)
         {
             // Check Posture
-            if (body != null && TestPosture(body))
+            if (body.IsTracked && TestPosture(body))
             {
                 // Send a OnGestureRecognized event
                 if (!LastGesture)
@@ -57,7 +57,7 @@ namespace MyGesturesBank
             float yDistance = Math.Abs(handRight.Position.Y - handLeft.Position.Y);
 
             // Check if both hands are joined
-            if(xDistance < 0.15 && yDistance < 0.15 && handRight.TrackingState != TrackingState.NotTracked && handLeft.TrackingState != TrackingState.NotTracked) 
+            if(body.IsTracked && xDistance < 0.15 && yDistance < 0.15 && handRight.TrackingState != TrackingState.NotTracked && handLeft.TrackingState != TrackingState.NotTracked) 
             {
                 return true;
             }

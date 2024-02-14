@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using Microsoft.Kinect;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,6 +13,8 @@ namespace KinectUtils
     {
         public static EventHandler<GestureRecognizedEventArgs> GestureRecognized;
 
+        public static EventHandler<BodyFramedArrivedEventArgs> BodyFrameArrived;
+
         public static KinectManager KinectManager { get; set; }
 
         public static ObservableCollection<BaseGesture> KnownGestures { get; set; } = new ObservableCollection<BaseGesture>();
@@ -21,6 +24,7 @@ namespace KinectUtils
         public static void StartAcquiringFrame(KinectManager kinectManager)
         {
             //KinectStreamsFactory kinectStreamsFactory = new KinectStreamsFactory(kinectManager);
+            KinectManager = kinectManager;
             BodyStream = new BodyStream(kinectManager);
             foreach(BaseGesture g in KnownGestures)
             {
@@ -40,6 +44,11 @@ namespace KinectUtils
             }
         }
 
+        public static void AddGesture(BaseGesture gesture)
+        {
+            KnownGestures.Add(gesture);
+        }
+
         public static void RemoveGesture(BaseGesture gesture)
         {
             KnownGestures.Remove(gesture);
@@ -51,15 +60,25 @@ namespace KinectUtils
             {
                 b.GestureRecognized += GestureRecognized;
             }
+            foreach(BaseGesture b in e.OldItems)
+            {
+                if (b.GestureRecognized != null)
+                {
+                    b.GestureRecognized -= GestureRecognized;
+                }
+            }
         }
 
         public static void StopAcquiringFrame()
         {
             BodyStream.Stop();
+            KinectManager.StopSensor();
         }
 
         private static void BodyStream_FrameArrived(object sender, Microsoft.Kinect.FrameCapturedEventArgs e)
         {
+            BodyFrameArrived?.Invoke(sender, new BodyFramedArrivedEventArgs(BodyStream.bodies));
+
             foreach (var gesture in KnownGestures)
             {
                 foreach (var body in BodyStream.bodies)
@@ -72,6 +91,18 @@ namespace KinectUtils
             }
         }
 
- 
+        internal delegate void BodyFramedArrivedEventHandler(object sender, BodyFramedArrivedEventArgs e);
+        public class BodyFramedArrivedEventArgs : EventArgs
+        {
+            public Body[] Bodies { get; set; }
+
+            public BodyFramedArrivedEventArgs(Body[] bodies)
+            {
+                Bodies = bodies;
+            }
+        }
     }
+
+
+
 }
