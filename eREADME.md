@@ -11,7 +11,7 @@ Pour lancer l'application WPF, vous devez choisir comme projet de démarrage le 
 
 ## Application Console
 
-Pour lancer l'application Console, vous devez choisir comme projet de démarrage le projet ConsoleApp. Ensuite, une invite de commande apparaîtra et affichera le nom de la posture ou du mouvement que la kinect a reconnu. L'application peut reconnaître lorsque l'utilisateur a la main droite lever au-dessus de la tête, quand il a les mains jointes et quand il a les bras croisés en X. Elle peut aussi reconnaître les gestes, tels qu'un balayage sur la gauche avec la main droite, un balayage sur la droite avec la main gauche, un coupé en diagonale en partant au-dessus à droite de la tête et en arrivant à gauche de la hanche avec la main droite (https://www.youtube.com/watch?v=xEwfYR8ihEA) et la même chose symétriquement avec la main gauche.
+Pour lancer l'application Console, vous devez choisir comme projet de démarrage le projet ConsoleApp. Ensuite, une invite de commande apparaîtra et affichera le nom de la posture ou du mouvement que la kinect a reconnu. L'application peut reconnaître lorsque l'utilisateur a la main droite lever au-dessus de la tête et quand il a les mains jointes(la posture des bras croisés en X existe mais n'est pas correctement ajustée). Elle peut aussi reconnaître les gestes, tels qu'un balayage sur la gauche avec la main droite, un balayage sur la droite avec la main gauche, un coupé en diagonale en partant au-dessus à droite de la tête et en arrivant à gauche de la hanche avec la main droite (https://www.youtube.com/watch?v=xEwfYR8ihEA) et la même chose symétriquement avec la main gauche.
 
 ## Jeu 
 
