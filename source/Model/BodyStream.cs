@@ -43,7 +43,7 @@ namespace Model
         private int height;
 
         // Number of bodies on the image
-        private Body[] bodies = null;
+        public Body[] bodies = null;
         // List of bones
         private List<Tuple<JointType, JointType>> bones;
 

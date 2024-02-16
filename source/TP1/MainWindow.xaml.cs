@@ -38,5 +38,16 @@ namespace TP1
             InitializeComponent();
             DataContext = this;
         }
+
+
+        protected override void OnClosed(EventArgs e)
+        {
+            if (KinectStreamViewModel != null)
+            {
+                KinectStreamViewModel.KinectStream?.Stop();
+            }
+            KinectManager.StopSensor();
+            base.OnClosed(e);
+        }
     }
 }
